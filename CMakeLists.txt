@@ -10,3 +10,4 @@ add_executable(class1_test class1_dynamic-array/test/test.cpp
 add_executable(class1_fashion_in_berlan class1_dynamic-array/fashion_in_berland/fashion_in_berland.cpp)
 add_executable(class1_night_at_museum class1_dynamic-array/night_at_museum/night_at_museum.cpp)
 add_executable(class1_bear_and_game class1_dynamic-array/bear_and_game/bear_and_game.cpp)
+add_executable(class1_vitaly_string class1_dynamic-array/vitaly_string/vitaly_string.cpp)
