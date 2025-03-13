@@ -27,10 +27,11 @@ int run(string a, string b) {
                     cout << a;
                     return 0;
                 } else {
-                    a[i-1] = a[i-1] + 1;
-                    a[i] = 'a';
-                    cout << a;
-                    return 0;
+                    if (b[i] != 'a') {
+                        b[i] = b[i] - 1;
+                        cout << b;
+                        return 0;
+                    }
                 }
 
             }
@@ -40,27 +41,27 @@ int run(string a, string b) {
 }
 
 int main() {
-    // string a, b;
-    // getline(cin, a);
-    // getline(cin, b);
-    // run(a, b);
+    string a, b;
+    getline(cin, a);
+    getline(cin, b);
+    run(a, b);
 
 
-    run("a","c");
-    cout << endl;
-    run("aaa","zzz");
-    cout << endl;
-    run("abcdefg","abcdefh");
-    cout << endl;
-    run("abaa","acaa");
-    cout << endl;
-    run(
-        "xxxxxxxxxxxxxxxxxyyyyyyyyyyybbbbbbbccccccccddddddddddeeeeeeellllllllllzzzzzzzz",
-        "xxxxxxxxxxxxxxxxxyyyyyyyyyyybbbbbbbccccccccddddddddddeeeeeeelllllllllmzzzzzzzz"
-        );
-    cout << endl;
-    run(
-        "abcdefxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
-        "abcdefyaaaaaaaaaaaaaaaaaaaaaaaaaaaaes"
-        );
+    // run("a","c");
+    // cout << endl;
+    // run("aaa","zzz");
+    // cout << endl;
+    // run("abcdefg","abcdefh");
+    // cout << endl;
+    // run("abaa","acaa");
+    // cout << endl;
+    // run(
+    //     "xxxxxxxxxxxxxxxxxyyyyyyyyyyybbbbbbbccccccccddddddddddeeeeeeellllllllllzzzzzzzz",
+    //     "xxxxxxxxxxxxxxxxxyyyyyyyyyyybbbbbbbccccccccddddddddddeeeeeeelllllllllmzzzzzzzz"
+    //     );
+    // cout << endl;
+    // run(
+    //     "abcdefxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz",
+    //     "abcdefyaaaaaaaaaaaaaaaaaaaaaaaaaaaaes"
+    //     );
 }
