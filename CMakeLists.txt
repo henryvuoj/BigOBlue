@@ -12,3 +12,4 @@ add_executable(class1_night_at_museum class1_dynamic-array/night_at_museum/night
 add_executable(class1_bear_and_game class1_dynamic-array/bear_and_game/bear_and_game.cpp)
 add_executable(class1_vitaly_string class1_dynamic-array/vitaly_string/vitaly_string.cpp)
 add_executable(class1_array class1_dynamic-array/array/array.cpp)
+add_executable(class1_segment class1_dynamic-array/segment/segment.cpp)
