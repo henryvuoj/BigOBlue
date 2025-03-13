@@ -13,3 +13,4 @@ add_executable(class1_bear_and_game class1_dynamic-array/bear_and_game/bear_and_
 add_executable(class1_vitaly_string class1_dynamic-array/vitaly_string/vitaly_string.cpp)
 add_executable(class1_array class1_dynamic-array/array/array.cpp)
 add_executable(class1_segment class1_dynamic-array/segment/segment.cpp)
+add_executable(class1_password class1_dynamic-array/password/password.cpp)
