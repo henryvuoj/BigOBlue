@@ -14,3 +14,4 @@ add_executable(class1_vitaly_string class1_dynamic-array/vitaly_string/vitaly_st
 add_executable(class1_array class1_dynamic-array/array/array.cpp)
 add_executable(class1_segment class1_dynamic-array/segment/segment.cpp)
 add_executable(class1_password class1_dynamic-array/password/password.cpp)
+add_executable(class1_suffix_structure suffix_structure/suffix_structure.cpp)
