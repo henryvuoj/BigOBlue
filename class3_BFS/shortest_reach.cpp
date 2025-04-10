@@ -77,6 +77,7 @@ void run_test(string input) {
                 continue;
             }
             graph[current_edge_key].push_back(value);
+            graph[value].push_back(current_edge_key);
             current_edge_key = -1;
             count_m--;
             continue;
@@ -173,28 +174,29 @@ void test2() {
 
 int main() {
     //test1()
-    test2();
+    // test2();
 
-    // int q;
-    // cin >> q;
-    // for (int i = 0; i < q; i++) {
-    //     int n;
-    //     cin >> n;
-    //     int m;
-    //     cin >> m;
-    //     vector<vector<int>> graph(n+1);
-    //     cin.ignore();
-    //     for (int j = 0; j < m; j++) {
-    //         string line;
-    //         getline(cin, line);
-    //         stringstream ss(line);
-    //         int u, v;
-    //         ss >> u >> v;
-    //         graph[u].push_back(v);
-    //     }
-    //     int s;
-    //     cin >> s;
-    //     handle_query(n, m, graph, s);
-    // }
+    int q;
+    cin >> q;
+    for (int i = 0; i < q; i++) {
+        int n;
+        cin >> n;
+        int m;
+        cin >> m;
+        vector<vector<int>> graph(n+1);
+        cin.ignore();
+        for (int j = 0; j < m; j++) {
+            string line;
+            getline(cin, line);
+            stringstream ss(line);
+            int u, v;
+            ss >> u >> v;
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        int s;
+        cin >> s;
+        handle_query(n, m, graph, s);
+    }
     return 0;
 }
