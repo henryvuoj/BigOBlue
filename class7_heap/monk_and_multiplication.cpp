@@ -71,18 +71,37 @@ void heapify(vector<int> &nums, bool isMinHeap) {
       current--;
     }
 }
+void insert_heap(vector<int> &nums, bool isMinHeap, int value) {
+    nums.push_back(value);
+    int current = nums.size() - 1;
+    while (current > 0) {
+        int parent_index = (current - 1) / 2;
+        if (isMinHeap) {
+            if (nums[parent_index] > nums[current]) {
+                _swap(nums, parent_index, current);
+            }
+        } else {
+            if (nums[parent_index] < nums[current]) {
+                _swap(nums, parent_index, current);
+            }
+        }
+        current = parent_index;
+    }
+}
 void test_heapify() {
     vector<int> nums = {2,4,7,10,8,3,5,1,9,6};
 
     heapify(nums, true);
+    insert_heap(nums, true, 0);
     for(int i = 0; i < nums.size(); i++) {
         cout << nums[i] << " ";
     }
     printf("Done Min Heapify\n");
 
-    heapify(nums, false);
-    for(int i = 0; i < nums.size(); i++) {
-        cout << nums[i] << " ";
+    vector<int> nums2 = {2,4,7,10,8,3,5,1,9,6};
+    heapify(nums2, false);
+    for(int i = 0; i < nums2.size(); i++) {
+        cout << nums2[i] << " ";
     }
     printf("Done Max Heapify\n");
 }
