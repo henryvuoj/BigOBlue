@@ -88,11 +88,20 @@ void insert_heap(vector<int> &nums, bool isMinHeap, int value) {
         current = parent_index;
     }
 }
-void test_heapify() {
+void remove_heap(vector<int> &nums, bool isMinHeap) {
+    if (nums.size() > 0) {
+        _swap(nums, 0, nums.size() - 1);
+        nums.pop_back();
+        _heapify(nums, isMinHeap, 0);
+    }
+}
+void test_heap() {
     vector<int> nums = {2,4,7,10,8,3,5,1,9,6};
 
     heapify(nums, true);
-    insert_heap(nums, true, 0);
+    // insert_heap(nums, true, 0);
+    remove_heap(nums, true);
+    remove_heap(nums, true);
     for(int i = 0; i < nums.size(); i++) {
         cout << nums[i] << " ";
     }
@@ -108,5 +117,5 @@ void test_heapify() {
 //HEAP IMPLEMENTATION
 
 int main() {
-    test_heapify();
+    test_heap();
 }
