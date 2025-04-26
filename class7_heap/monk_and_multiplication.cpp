@@ -8,8 +8,11 @@
 using namespace std;
 
 //HEAP IMPLEMENTATION
+bool _compare(uint64_t a, uint64_t b, bool isMinHeap) {
+    return isMinHeap ? a < b : a > b;
+}
 void _swap(vector<uint64_t> &nums, int i, int j) {
-    int tmp = nums[i];
+    uint64_t tmp = nums[i];
     nums[i] = nums[j];
     nums[j] = tmp;
 }
@@ -17,48 +20,23 @@ void _heapify(vector<uint64_t> &nums, bool isMinHeap, int current){
     int nums_size = nums.size();
     int left_child = current * 2 + 1;
     int right_child = current * 2 + 2;
-    if (isMinHeap) {
-        if (left_child < nums_size && right_child < nums_size) {
-            int swap_value = std::min(nums[left_child], nums[right_child]);
-            if (swap_value < nums[current]) {
-                if (swap_value == nums[left_child]) {
-                    _swap(nums, left_child, current);
-                    _heapify(nums, isMinHeap, left_child);
-                } else {
-                    _swap(nums, right_child, current);
-                    _heapify(nums, isMinHeap, right_child);
-                }
-            }
-        } else {
-            if (left_child < nums_size && nums[left_child] < nums[current]) {
-                _swap(nums, left_child, current);
-                _heapify(nums, isMinHeap, left_child);
-            } else if (right_child < nums_size && nums[right_child] < nums[current]) {
-                _swap(nums, right_child, current);
-                _heapify(nums, isMinHeap, right_child);
-            }
-        }
+    int swap_value;
+    int swap_index;
+    if (left_child < nums_size && right_child < nums_size) {
+        swap_value = _compare(nums[left_child], nums[right_child], isMinHeap) ? nums[left_child] : nums[right_child];
+        swap_index = _compare(nums[left_child], nums[right_child], isMinHeap) ? left_child : right_child;
+    } else if (left_child < nums_size && _compare(nums[left_child], nums[current], isMinHeap)){
+        swap_value = nums[left_child];
+        swap_index = left_child;
+    } else if (right_child < nums_size && _compare(nums[right_child], nums[current], isMinHeap)) {
+        swap_value = nums[right_child];
+        swap_index = right_child;
     } else {
-        if (left_child < nums.size() && right_child < nums_size) {
-            int swap_value = std::max(nums[left_child], nums[right_child]);
-            if (swap_value > nums[current]) {
-                if (swap_value == nums[left_child]) {
-                    _swap(nums, left_child, current);
-                    _heapify(nums, isMinHeap, left_child);
-                } else {
-                    _swap(nums, right_child, current);
-                    _heapify(nums, isMinHeap, right_child);
-                }
-            }
-        } else {
-            if (left_child < nums_size && nums[left_child] > nums[current]) {
-                _swap(nums, left_child, current);
-                _heapify(nums, isMinHeap, left_child);
-            } else if (right_child < nums_size && nums[right_child] > nums[current]) {
-                _swap(nums, right_child, current);
-                _heapify(nums, isMinHeap, right_child);
-            }
-        }
+        return;
+    }
+    if (_compare(swap_value, nums[current], isMinHeap)) {
+        _swap(nums, swap_index, current);
+        _heapify(nums, isMinHeap, swap_index);
     }
 }
 void heapify(vector<uint64_t> &nums, bool isMinHeap) {
@@ -152,17 +130,19 @@ int test2() {
 }
 
 int main() {
-    // test2();
+    test_heap();
+    test1();
+    test2();
 
-    uint64_t n;
-    cin >> n; // read how many numbers you want to input
-    vector<uint64_t> nums;
-
-    for (int i = 0; i < n; i++) {
-        uint64_t num;
-        cin >> num;
-        nums.push_back(num);
-    }
-
-    monk_and_multiplication(nums);
+    // uint64_t n;
+    // cin >> n; // read how many numbers you want to input
+    // vector<uint64_t> nums;
+    //
+    // for (int i = 0; i < n; i++) {
+    //     uint64_t num;
+    //     cin >> num;
+    //     nums.push_back(num);
+    // }
+    //
+    // monk_and_multiplication(nums);
 }
