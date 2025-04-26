@@ -34,3 +34,4 @@ add_executable(class7_monk_and_multiplication class7_heap/monk_and_multiplicatio
 add_executable(class7_qheap1 class7_heap/qheap1.cpp)
 add_executable(class7_add_all class7_heap/add_all.cpp)
 add_executable(class7_roy_trending class7_heap/roy_trending.cpp)
+add_executable(class7_promotion class7_heap/promotion.cpp)
