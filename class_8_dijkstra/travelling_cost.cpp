@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-
+#define MAX 505
 using namespace std;
 
 //ALGORITHM IMPLEMENTATION
@@ -27,13 +27,11 @@ struct DijkstraData {
 };
 //dist and path auto has value -1 at start
 DijkstraData dijkstra(int start, vector<vector<NodeCost>> &graph) {
-    vector<int> dist(graph.size(), -1);
-    vector<int> path(graph.size(), -1);
+    vector<int> dist(MAX, -1);
+    vector<int> path(MAX, -1);
     priority_queue<NodeCost, vector<NodeCost>, greater<NodeCost>> pq;
-    if (graph.size() != 0) {
-        pq.push({start, 0});
-        dist[start] = 0;
-    }
+    pq.push({start, 0});
+    dist[start] = 0;
     while (!pq.empty()) {
         NodeCost node = pq.top(); pq.pop();
         for (NodeCost adj_node : graph[node.id]) {
@@ -47,9 +45,6 @@ DijkstraData dijkstra(int start, vector<vector<NodeCost>> &graph) {
     return {start, dist, path};
 }
 int get_shortest_weight(int dest, DijkstraData &data) {
-    if (dest >= data.dist.size()) {
-        return -1;
-    }
     return data.dist[dest];
 }
 vector<int> get_shortest_path(int dest, DijkstraData &data) {
@@ -91,7 +86,7 @@ int test_dijkstra() {
 int main() {
     int n;
     cin >> n;
-    vector<vector<NodeCost>> graph(n);
+    vector<vector<NodeCost>> graph(MAX);
     for (int i = 0; i < n; i++) {
         int start;
         cin >> start;
@@ -100,6 +95,7 @@ int main() {
         int weight;
         cin >> weight;
         graph[start].push_back({end, weight});
+        graph[end].push_back({start, weight});
     }
     int start;
     cin >> start;
