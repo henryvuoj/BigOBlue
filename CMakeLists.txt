@@ -9,7 +9,6 @@ add_executable(class1_test class1_dynamic-array/test/test.cpp
 
 add_executable(class1_fashion_in_berlan class1_dynamic-array/fashion_in_berland/fashion_in_berland.cpp)
 add_executable(class1_night_at_museum class1_dynamic-array/night_at_museum/night_at_museum.cpp)
-add_executable(class1_bear_and_game class1_dynamic-array/bear_and_game/bear_and_game.cpp)
 add_executable(class1_vitaly_string class1_dynamic-array/vitaly_string/vitaly_string.cpp)
 add_executable(class1_segment class1_dynamic-array/segment/segment.cpp)
 add_executable(class1_password class1_dynamic-array/password/password.cpp)
@@ -37,3 +36,4 @@ add_executable(class7_promotion class7_heap/promotion.cpp)
 add_executable(class8_travelling_cost class_8_dijkstra/travelling_cost.cpp)
 add_executable(class8_mice_and_maze class_8_dijkstra/mice_and_maze.cpp)
 add_executable(class8_traffic_network class_8_dijkstra/traffic_network.cpp)
+add_executable(class10_wormholes class_10_bellman_ford/wormholes.cpp)
