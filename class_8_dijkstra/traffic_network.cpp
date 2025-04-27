@@ -103,34 +103,37 @@ int main() {
         DijkstraData data_from_t = dijkstra(t, graph);
         DijkstraData data_to_s = dijkstra(s, graph_reverse);
         DijkstraData data_to_t = dijkstra(t, graph_reverse);
-        int min;
-        if (get_shortest_weight(s, data_from_t) == -1) {
-            min = get_shortest_weight(t, data_from_s);
-        } else if (get_shortest_weight(t, data_from_s) == -1) {
-            min = get_shortest_weight(s, data_from_t);
-        } else {
-            min = std::min(get_shortest_weight(t, data_from_s), get_shortest_weight(s, data_from_t));
-        }
+        int min = get_shortest_weight(t, data_from_s);
+        // if (get_shortest_weight(s, data_from_t) == -1) {
+        //     min = get_shortest_weight(t, data_from_s);
+        // } else if (get_shortest_weight(t, data_from_s) == -1) {
+        //     min = get_shortest_weight(s, data_from_t);
+        // } else {
+        //     min = std::min(get_shortest_weight(t, data_from_s), get_shortest_weight(s, data_from_t));
+        // }
         for (int i = 0; i < k; i++) {
             int u, v, q;
             cin >> u >> v >> q;
             u--; v--;
             //Check if s -> u -> v -> t
             if (get_shortest_weight(u, data_from_s) != -1 && get_shortest_weight(v, data_to_t) != -1) {
-                min = std::min(min, get_shortest_weight(u, data_from_s) + get_shortest_weight(v, data_to_t) + q);
+                int new_weight = get_shortest_weight(u, data_from_s) + get_shortest_weight(v, data_to_t) + q;
+                min = min != -1 ? std::min(min, new_weight) : new_weight;
             }
             //Check if s -> v > u -> t
             if (get_shortest_weight(v, data_from_s) != -1 && get_shortest_weight(u, data_to_t) != -1) {
-                min = std::min(min, get_shortest_weight(v, data_from_s) + get_shortest_weight(u, data_to_t) + q);
+                int new_weight = get_shortest_weight(v, data_from_s) + get_shortest_weight(u, data_to_t) + q;
+                min = min != -1 ? std::min(min, new_weight) : new_weight;
             }
-            //Check if t -> u -> v -> s
-            if (get_shortest_weight(u, data_from_t) != -1 && get_shortest_weight(v, data_to_s) != -1) {
-                min = std::min(min, get_shortest_weight(u, data_from_t) + get_shortest_weight(v, data_to_s) + q);
-            }
-            //Check if t -> v -> u -> s
-            if (get_shortest_weight(v, data_from_t) != -1 && get_shortest_weight(u, data_to_s) != -1) {
-                min = std::min(min, get_shortest_weight(v, data_from_t) + get_shortest_weight(u, data_to_s) + q);
-            }
+            // //Check if t -> u -> v -> s
+            // if (get_shortest_weight(u, data_from_t) != -1 && get_shortest_weight(v, data_to_s) != -1) {
+            //     min = std::min(min, get_shortest_weight(u, data_from_t) + get_shortest_weight(v, data_to_s) + q);
+            // }
+            // //Check if t -> v -> u -> s
+            // if (get_shortest_weight(v, data_from_t) != -1 && get_shortest_weight(u, data_to_s) != -1) {
+            //     min = std::min(min, get_shortest_weight(v, data_from_t) + get_shortest_weight(u, data_to_s) + q);
+            // }
+
         }
         cout << min << endl;
     }
