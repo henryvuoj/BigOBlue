@@ -96,26 +96,18 @@ int main() {
         }
         int q;
         cin >> q;
+        BellmanFordData bellman_ford_data = bellmanFord(0, edges, n);
         for (int i = 0; i < q; i++) {
             int qi;
             cin >> qi;
             qi--;
-            BellmanFordData bellman_ford_data = bellmanFord(0, edges, n);
-            BellmanFordData bellman_ford_data_rev = bellmanFord(qi, edges, n);
-            int min = INF;
-            if (!bellman_ford_data.is_valid && !bellman_ford_data_rev.is_valid) {
+            if (!bellman_ford_data.is_valid) {
                 cout << "?" << endl;
             } else {
-                if (bellman_ford_data.is_valid && bellman_ford_data.dist[qi] != INF) {
-                    min = std::min(bellman_ford_data.dist[qi], min);
-                }
-                if (bellman_ford_data_rev.is_valid && bellman_ford_data_rev.dist[0] != INF) {
-                    min = std::min(bellman_ford_data_rev.dist[0], min);
-                }
-                if (min == INF || min < 3) {
+                if (bellman_ford_data.dist[qi] < 3) {
                     cout << "?" << endl;
                 } else {
-                    cout << min << endl;
+                    cout << bellman_ford_data.dist[qi] << endl;
                 }
             }
         }
