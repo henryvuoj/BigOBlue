@@ -21,14 +21,13 @@ struct BellmanFordData {
     int start;
     vector<int> dist;
     vector<int> path;
-    bool is_valid;
 };
 BellmanFordData bellmanFord(int start, vector<Edge> edges, int v) {
     //Loop through V-1 time all the Edges and update the dist and path
     vector<int> dist(MAX, INF);
     vector<int> path(MAX, -1);
     dist[start] = 0;
-    for (int i = 0; i < v; i++) {
+    for (int i = 0; i < v - 1; i++) {
         for (Edge edge : edges) {
             if (dist[edge.start] != INF && dist[edge.start] + edge.cost < dist[edge.end]) {
                 dist[edge.end] = dist[edge.start] + edge.cost;
@@ -36,19 +35,21 @@ BellmanFordData bellmanFord(int start, vector<Edge> edges, int v) {
             }
         }
     }
+    //Check again for negative loop
+    //For all negative edge, set -INF
+    for (int i = 0; i < v - 1; i++) {
+        for (Edge edge : edges) {
+            if (dist[edge.start] != INF && dist[edge.start] + edge.cost < dist[edge.end]) {
+                dist[edge.end] = -INF;
+                path[edge.end] = -1;
+            }
+        }
+    }
     BellmanFordData bellman_ford_data = {
         start,
         dist,
-        path,
-        true
+        path
     };
-    //Check again for negative loop
-    for (Edge edge : edges) {
-        if (dist[edge.start] != INF && (dist[edge.start] + edge.cost < dist[edge.end])) {
-            bellman_ford_data.is_valid = false;
-            break;
-        }
-    }
     return bellman_ford_data;
 }
 void test_bellman_ford() {
@@ -67,7 +68,7 @@ void test_bellman_ford() {
     };
     int start = 0;
     BellmanFordData bellman_ford_data = bellmanFord(start, edges, v);
-    cout << bellman_ford_data.is_valid << endl;
+    cout << "DONE" << endl;
 }
 //ALGORITHM IMPLEMENTATION
 
@@ -101,14 +102,10 @@ int main() {
             int qi;
             cin >> qi;
             qi--;
-            if (!bellman_ford_data.is_valid) {
+            if (bellman_ford_data.dist[qi] < 3 || bellman_ford_data.dist[qi] == INF) {
                 cout << "?" << endl;
             } else {
-                if (bellman_ford_data.dist[qi] < 3) {
-                    cout << "?" << endl;
-                } else {
-                    cout << bellman_ford_data.dist[qi] << endl;
-                }
+                cout << bellman_ford_data.dist[qi] << endl;
             }
         }
     }
