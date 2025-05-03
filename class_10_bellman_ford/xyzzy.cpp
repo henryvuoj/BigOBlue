@@ -5,98 +5,94 @@
 #include <iostream>
 #include <ostream>
 #include <vector>
-
+#include <queue>
 #define INF -1000
 #define MAX 101
 
 using namespace std;
 
-struct BellmanFordData {
-    vector<int> dist;
-    vector<int> path;
-};
+bool bfsReachable(int start, int end, vector<vector<int>> edges) {
+    //Convert to adjacent list
+    vector<vector<int>> graph(MAX+1, vector<int>());
+    for (vector<int> edge : edges) {
+        graph[edge[0]].push_back(edge[1]);
+    }
+    /*
+     * BFS
+     * - Put all next adj list of current checking node to queue.
+     * - Pop queue to take current checking node and repeat step 1
+     */
+    queue<int> queue;
+    queue.push(start);
+    while (queue.size() > 0) {
+        int node = queue.front(); queue.pop();
+        vector<int> adj_nodes = graph[node];
+        for (int adj_node : adj_nodes) {
+            if (adj_node == end) {
+                return true;
+            }
+            queue.push(adj_node);
+        }
+    }
+    return false;
+}
 
-BellmanFordData bellmanFord(int start, vector<vector<int>> edges, int vertices) {
+bool bellmanFord(int start, int end, vector<vector<int>> edges, int vertices) {
     vector<int> dist = vector<int>(MAX, INF);
     vector<int> path = vector<int>(MAX, -1);
-    dist[start] = 0;
+    dist[start] = 100;
     for (int i = 0; i < vertices; i++) {
         for (vector<int> edge : edges) {
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
-            if (dist[v] == INF || dist[v] < dist[u] + w) {
+            if (dist[u] > 0 && dist[v] < dist[u] + w) {
                 dist[v] = dist[u] + w;
                 path[v] = u;
             }
         }
     }
-    BellmanFordData bf = {
-        dist,
-        path
-    };
-    return bf;
-}
-void test_bellman_ford_without_negative_loop() {
-    //No loop
-    int v = 6;
-    vector<vector<int>> edges = {
-        {0, 1, 1},
-        {1, 2, 5},
-        {1, 3, -2},
-        {1, 5, 7},
-        {2, 5, -1},
-        {3, 0, 2},
-        {3, 2, -1},
-        {3, 4, 4},
-        {4, 3, 3},
-        {5, 4, 1}
-    };
-    int start = 0;
-    BellmanFordData bellman_ford_data = bellmanFord(start, edges, v);
-    cout << "DONE" << endl;
-}
-void test_bellman_ford_with_negative_loop() {
-    //No loop
-    int v = 6;
-    vector<vector<int>> edges = {
-        {0, 1, 1},
-        {1, 2, 5},
-        {1, 3, -12},
-        {1, 5, 7},
-        {2, 5, -1},
-        {3, 0, 2},
-        {3, 2, -1},
-        {3, 4, 4},
-        {4, 3, 3},
-        {5, 4, 1}
-    };
-    int start = 0;
-    BellmanFordData bellman_ford_data = bellmanFord(start, edges, v);
-    cout << "DONE" << endl;
-}
-void test_bellman_ford() {
-    test_bellman_ford_with_negative_loop();
-    test_bellman_ford_without_negative_loop();
-}
+    for (int i = 0; i < vertices; i++) {
+        for (vector<int> edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int w = edge[2];
+            if (dist[u] > 0 && dist[v] < dist[u] + w && bfsReachable(v, end, edges)) {
+                return true;
+            }
+        }
+    }
 
-
+    return dist[end] > 0;
+}
 
 int main() {
     while (true) {
         int n;
         cin >> n;
+        if (n == -1) return 0;
         vector<vector<int>> edges = {};
-        int idx = 0;
-        while (true) {
+        int start;
+        int end;
+        for (int i = 0; i < n; i++) {
             int energy, out_door;
             cin >> energy >> out_door;
-            for (int i = 0; i < out_door; i++) {
+            if (energy == 0 && out_door != 0) {
+                start = i;
+            } else if (energy == 0 && out_door == 0) {
+                end = i;
+            }
+            for (int j = 0; j < out_door; j++) {
                 int out;
                 cin >> out;
-                edges.push_back({idx, out, energy});
+                out--;
+                edges.push_back({i, out, energy});
             }
-            idx++;
+        }
+        if (bellmanFord(start, end, edges, n)) {
+            cout << "winnable" << endl;
+        } else {
+            cout << "hopeless" << endl;
         }
     }
 }
