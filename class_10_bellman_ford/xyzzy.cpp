@@ -6,7 +6,7 @@
 #include <ostream>
 #include <vector>
 #include <queue>
-#define INF -1000
+#define INF -10000000
 #define MAX 101
 
 using namespace std;
@@ -14,6 +14,7 @@ using namespace std;
 bool bfsReachable(int start, int end, vector<vector<int>> edges) {
     //Convert to adjacent list
     vector<vector<int>> graph(MAX+1, vector<int>());
+    vector<bool> visited(MAX+1, false);
     for (vector<int> edge : edges) {
         graph[edge[0]].push_back(edge[1]);
     }
@@ -24,6 +25,7 @@ bool bfsReachable(int start, int end, vector<vector<int>> edges) {
      */
     queue<int> queue;
     queue.push(start);
+    visited[start] = true;
     while (queue.size() > 0) {
         int node = queue.front(); queue.pop();
         vector<int> adj_nodes = graph[node];
@@ -31,7 +33,10 @@ bool bfsReachable(int start, int end, vector<vector<int>> edges) {
             if (adj_node == end) {
                 return true;
             }
-            queue.push(adj_node);
+            if (!visited[adj_node]) {
+                visited[adj_node] = true;
+                queue.push(adj_node);
+            }
         }
     }
     return false;
