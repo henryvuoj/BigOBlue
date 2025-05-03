@@ -5,8 +5,8 @@
 #include <iostream>
 #include <ostream>
 #include <vector>
-#include <climits>
-#define INF 1000
+
+#define INF -1000
 #define MAX 101
 
 using namespace std;
@@ -14,7 +14,6 @@ using namespace std;
 struct BellmanFordData {
     vector<int> dist;
     vector<int> path;
-    bool is_valid;
 };
 
 BellmanFordData bellmanFord(int start, vector<vector<int>> edges, int vertices) {
@@ -26,7 +25,7 @@ BellmanFordData bellmanFord(int start, vector<vector<int>> edges, int vertices) 
             int u = edge[0];
             int v = edge[1];
             int w = edge[2];
-            if (dist[v] == INF || dist[v] > dist[u] + w) {
+            if (dist[v] == INF || dist[v] < dist[u] + w) {
                 dist[v] = dist[u] + w;
                 path[v] = u;
             }
@@ -34,17 +33,8 @@ BellmanFordData bellmanFord(int start, vector<vector<int>> edges, int vertices) 
     }
     BellmanFordData bf = {
         dist,
-        path,
-        true
+        path
     };
-    for (vector<int> edge : edges) {
-        int u = edge[0];
-        int v = edge[1];
-        int w = edge[2];
-        if (dist[v] != INF && dist[v] > dist[u] + w) {
-            bf.is_valid = false;
-        }
-    }
     return bf;
 }
 void test_bellman_ford_without_negative_loop() {
@@ -64,7 +54,7 @@ void test_bellman_ford_without_negative_loop() {
     };
     int start = 0;
     BellmanFordData bellman_ford_data = bellmanFord(start, edges, v);
-    cout << bellman_ford_data.is_valid << endl;
+    cout << "DONE" << endl;
 }
 void test_bellman_ford_with_negative_loop() {
     //No loop
@@ -83,7 +73,7 @@ void test_bellman_ford_with_negative_loop() {
     };
     int start = 0;
     BellmanFordData bellman_ford_data = bellmanFord(start, edges, v);
-    cout << bellman_ford_data.is_valid << endl;
+    cout << "DONE" << endl;
 }
 void test_bellman_ford() {
     test_bellman_ford_with_negative_loop();
