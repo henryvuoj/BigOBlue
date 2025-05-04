@@ -89,7 +89,7 @@ int main() {
             for (int i = 0; i < data.dist.size(); i++) {
                 int count = 0;
                 for (int j = 0; j < data.dist.size(); j++) {
-                    if (data.dist[i][j] != INF && data.dist[i][j] > 1 && i != j) {
+                    if (data.dist[i][j] == 2 && i != j) {
                         count++;
                     }
                 }
