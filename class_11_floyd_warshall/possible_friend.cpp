@@ -35,15 +35,6 @@ FloydWarshallData floyd_warshall(vector<vector<int>> graph) {
                 }
             }
         }
-        for (int i = 0; i < n; i++) {
-            if (graph[i][i] < 0) {
-                return {
-                    graph,
-                    path,
-                    false,
-                };
-            }
-        }
     }
     return {
         graph,
