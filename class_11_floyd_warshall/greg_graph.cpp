@@ -1,3 +1,12 @@
+/*
+4
+0 57148 51001 13357
+71125 0 98369 67226
+49388 90852 0 66291
+39573 38165 97007 0
+2 3 1 4
+
+ */
 //
 // Created by VHHV on 6/5/25.
 //
@@ -7,16 +16,9 @@
 #include <utility>
 #include <algorithm>
 
-#define INF 1000000
+#define INF 100000000
 using namespace std;
 
-/*
-2
-0 5
-4 0
-1 2
-
- */
 int main() {
     int n;
     cin >> n;
@@ -37,17 +39,21 @@ int main() {
     }
     for (int is = n - 1; is >= 0; is--) {
         int k = steps[is];
-        current_vertices.push_back(steps[is]);
+        current_vertices.push_back(k);
 
         for (int i : current_vertices) {
-            if (graph[i][k] == INF) continue;
             for (int j : current_vertices) {
-                if (graph[k][j] != INF) {
-                    graph[i][j] = std::min(graph[i][j], graph[i][k] + graph[k][j]);
-                }
-                if (graph[i][j] != INF) {
-                    sum += graph[i][j];
-                }
+                graph[i][j] = std::min(graph[i][j], graph[i][k] + graph[k][j]);
+            }
+        }
+        // for (int i = 0; i < n; i++) {
+        //     for (int j = 0; j < n; j++) {
+        //         graph[i][j] = std::min(graph[i][j], graph[i][k] + graph[k][j]);
+        //     }
+        // }
+        for (int i : current_vertices) {
+            for (int j : current_vertices) {
+                sum += graph[i][j];
             }
         }
         steps[is] = sum;
@@ -57,3 +63,52 @@ int main() {
         cout << steps[i] << " ";
     }
 }
+
+// #include <iostream>
+// #define MAX 505
+// using namespace std;
+//
+// int n;
+// int dist[MAX][MAX];
+// long long res[MAX];
+// int middleV[MAX];
+//
+// int main() {
+//
+//     int u, v;
+//     cin >> n;
+//
+//     for (int i = 1; i <= n; i++) {
+//         for (int j = 1; j <= n; j++) {
+//             cin >> dist[i][j];
+//         }
+//     }
+//
+//     for (int i = 0; i < n; i++) {
+//         cin >> middleV[i];
+//     }
+//
+//     for (int index = n - 1; index >= 0; index--) {
+//         int k = middleV[index];
+//
+//         for (int i = 1; i <= n; i++) {
+//             for (int j = 1; j <= n; j++) {
+//                 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+//             }
+//         }
+//
+//         for (int i = index; i < n; i++) {
+//             u = middleV[i];
+//             for (int j = index; j < n; j++) {
+//                 v = middleV[j];
+//                 res[index] += dist[u][v];
+//             }
+//         }
+//     }
+//
+//     for (int i = 0; i < n; i++) {
+//         cout << res[i] << " ";
+//     }
+//
+//     return 0;
+// }
