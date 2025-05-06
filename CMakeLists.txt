@@ -41,3 +41,4 @@ add_executable(class10_extended_traffic class_10_bellman_ford/extended_traffic.c
 add_executable(class10_xyzzy class_10_bellman_ford/xyzzy.cpp)
 add_executable(class11_possible_friend class_11_floyd_warshall/possible_friend.cpp)
 add_executable(class11_prof_miguel class_11_floyd_warshall/prof_miguel.cpp)
+add_executable(class11_asterix class_11_floyd_warshall/asterix.cpp)
