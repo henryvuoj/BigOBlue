@@ -6,6 +6,7 @@
 #include <ostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 //TOPOSORT DFS
@@ -119,11 +120,10 @@ void test_toposort_dfs_with_cycle() {
 //TOPOSORT DFS WITH CYCLE
 
 //TOPOSORT KAHN
-//Has visited + queue to put all vertice_weight = 0 into
+//Has queue to put all vertice_weight = 0 into
 vector<int> toposort_kahn(vector<vector<int>> &graph) {
     vector<int> result;
-    vector<bool> visited(graph.size(), false);
-    vector<int> vertice_weight(graph.size());
+    vector<int> vertice_weight(graph.size(), 0);
     queue<int> queue;
     for (int i = 0; i < graph.size(); ++i) {
         for (int j = 0; j < graph[i].size(); ++j) {
@@ -137,7 +137,6 @@ vector<int> toposort_kahn(vector<vector<int>> &graph) {
     }
     while (!queue.empty()) {
         int node = queue.front(); queue.pop();
-        visited[node] = true;
         result.push_back(node);
         for (int v : graph[node]) {
             vertice_weight[v]--;
@@ -146,11 +145,7 @@ vector<int> toposort_kahn(vector<vector<int>> &graph) {
             }
         }
     }
-    for (int i = 0; i < graph.size(); ++i) {
-        if (visited[i] == false) {
-            return {};
-        }
-    }
+    reverse(result.begin(), result.end());
     return result;
 }
 void test_toposort_kahn() {
@@ -173,5 +168,24 @@ void test_toposort_kahn() {
 int main() {
     // test_toposort_dfs();
     // test_toposort_dfs_with_cycle();
-    test_toposort_kahn();
+    // test_toposort_kahn();
+
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> graph = vector<vector<int>>(n, vector<int>());
+    for (int i = 0; i < m; ++i) {
+        int u, v;
+        cin >> u >> v;
+        u--; v--;
+        graph[v].push_back(u);
+    }
+    // vector<int> result = toposort_dfs_with_cycle(graph);
+    vector<int> result = toposort_kahn(graph);
+    if (result.empty()) {
+        cout << "Sandro fails.";
+    } else {
+        for (int res : result) {
+            cout << res + 1 << " ";
+        }
+    }
 }
