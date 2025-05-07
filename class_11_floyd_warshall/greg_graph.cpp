@@ -41,16 +41,11 @@ int main() {
         int k = steps[is];
         current_vertices.push_back(k);
 
-        for (int i : current_vertices) {
-            for (int j : current_vertices) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 graph[i][j] = std::min(graph[i][j], graph[i][k] + graph[k][j]);
             }
         }
-        // for (int i = 0; i < n; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         graph[i][j] = std::min(graph[i][j], graph[i][k] + graph[k][j]);
-        //     }
-        // }
         for (int i : current_vertices) {
             for (int j : current_vertices) {
                 sum += graph[i][j];
