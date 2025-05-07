@@ -43,3 +43,4 @@ add_executable(class11_possible_friend blue/class_11_floyd_warshall/possible_fri
 add_executable(class11_prof_miguel blue/class_11_floyd_warshall/prof_miguel.cpp)
 add_executable(class11_asterix blue/class_11_floyd_warshall/asterix.cpp)
 add_executable(class11_greg_graph blue/class_11_floyd_warshall/greg_graph.cpp)
+add_executable(or_class1_toposort orange/class1_toposort/topo_sort.cpp)
