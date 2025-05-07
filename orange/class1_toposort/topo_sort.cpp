@@ -67,7 +67,7 @@ bool _toposort_dfs_with_cycle(vector<vector<int>> &graph, vector<int> &visited, 
     visited[node] = DOING;
     vector<int> adj_nodes = graph[node];
     if (adj_nodes.empty()) {
-        visited[node] = true;
+        visited[node] = TRUE;
         result.push_back(node);
         return true;
     }
@@ -179,8 +179,8 @@ int main() {
         u--; v--;
         graph[v].push_back(u);
     }
-    // vector<int> result = toposort_dfs_with_cycle(graph);
-    vector<int> result = toposort_kahn(graph);
+    vector<int> result = toposort_dfs_with_cycle(graph);
+    // vector<int> result = toposort_kahn(graph);
     if (result.empty()) {
         cout << "Sandro fails.";
     } else {
