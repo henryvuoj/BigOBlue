@@ -55,28 +55,36 @@ enum State {
     DOING,
     TRUE
 };
-void _toposort_dfs_with_cycle(vector<vector<int>> &graph, vector<int> &visited, vector<int> &result, int node) {
-    if (visited[node] != FALSE) {
-        return;
+bool _toposort_dfs_with_cycle(vector<vector<int>> &graph, vector<int> &visited, vector<int> &result, int node) {
+    if (visited[node] == TRUE) {
+        return true;
+    }
+    if (visited[node] == DOING) {
+        return false;
     }
     visited[node] = DOING;
     vector<int> adj_nodes = graph[node];
     if (adj_nodes.empty()) {
         visited[node] = true;
         result.push_back(node);
-        return;
+        return true;
     }
     for (int adj_node : adj_nodes) {
-        _toposort_dfs_with_cycle(graph, visited, result, adj_node);
+        if (!_toposort_dfs_with_cycle(graph, visited, result, adj_node)) {
+            return false;
+        }
     }
     visited[node] = TRUE;
     result.push_back(node);
+    return true;
 }
 vector<int> toposort_dfs_with_cycle(vector<vector<int>> &graph) {
     vector<int> result;
     vector<int> visited(graph.size(), FALSE);
     for (int i = 0; i < graph.size(); ++i) {
-        _toposort_dfs_with_cycle(graph, visited, result, i);
+        if(!_toposort_dfs_with_cycle(graph, visited, result, i)) {
+            return {};
+        }
     }
     return result;
 }
