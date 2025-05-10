@@ -6,11 +6,11 @@
 #include <vector>
 using namespace std;
 
-int calculate_amount_wood(vector<int> &trees, int height) {
-    int amount = 0;
+long long calculate_amount_wood(vector<int> &trees, int height) {
+    long long amount = 0;
     for (int tree : trees) {
         if (tree > height) {
-            amount += tree - height;
+            amount += (long long) (tree-height);
         }
     }
     return amount;
@@ -37,8 +37,8 @@ int main() {
     int left = 0, right = max;
     while (left <= right) {
         int mid = left + ((right - left)/2);
-        int amount = calculate_amount_wood(trees, mid);
-        if (amount > M) {
+        long long amount = calculate_amount_wood(trees, mid);
+        if (amount > (long long) M) {
             left = mid + 1;
         } else if (amount < M) {
             right = mid - 1;
