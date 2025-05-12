@@ -53,6 +53,7 @@ add_executable(or_class1_fox_and_name orange/class1_toposort/fox_and_name.cpp)
 add_executable(or_class1_king_path orange/class1_toposort/king_path.cpp)
 add_executable(or_class1_beverages orange/class1_toposort/beverages.cpp)
 add_executable(or_class1_evil_book orange/class1_toposort/evil_book.cpp)
-add_executable(or_class2_mattey_multiply orange/class2_bitmask/mattey_multiply.cpp)
+add_executable(or_class2_mattey_multiply orange/class2_bitmask/mattey_multiply.cpp
+        orange/class2_bitmask/aish_and_xor.cpp)
 add_executable(or_class2_samu_birthday orange/class2_bitmask/samu_birthday.cpp)
 add_executable(or_class2_sansa_and_xor orange/class2_bitmask/sansa_and_xor.cpp)
