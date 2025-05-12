@@ -24,7 +24,6 @@ using namespace std;
 011
 101
 
-
 1
 3 3
 110
@@ -49,6 +48,15 @@ using namespace std;
 0010
 
 3332
+
+
+1
+2 2
+10
+01
+
+
+
  */
 
 
@@ -74,8 +82,29 @@ int main() {
                 }
             }
         }
+        int ans = K;
+        for (int j = 0; j <= (1 << K) - 1; j++) {
+            bool flag = true;
+            for (long long frd : friends) {
+                long long test = frd & j;
+                if ((frd & j) == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag == true) {
+                int count = 0;
+                int j_count = j;
+                while (j_count > 0) {
+                    count += (j_count & 1);
+                    j_count >>= 1;
+                }
+                ans = min(ans, count);
+                break;
+            }
+        }
 
-
+        cout << ans << endl;
 
         // map<int, int> priority_idx;
         // for (int j = 0; j < N; j++) {
