@@ -12,10 +12,10 @@ using namespace std;
 
 /*
 1
-3 6
-100001
-010001
-001001
+3 9
+000100001
+000010001
+100001001
 
 
 1
@@ -23,6 +23,7 @@ using namespace std;
 110
 011
 101
+
 
 1
 3 3
@@ -47,7 +48,6 @@ using namespace std;
 1110
 0010
 
-3332
 
 
 1
@@ -59,7 +59,25 @@ using namespace std;
 
  */
 
+long long convert_to_binary(string s) {
+    long long result = 0;
+    int size = s.length();
+    for (int k = 0; k < size; k++) {
+        if (s[k] == '1') {
+            result |= (1 << k);
+        }
+    }
+    return result;
+}
 
+int count_one_bits(long long binary) {
+    int count = 0;
+    while (binary > 0) {
+        if (binary & 1) ++count;
+        binary >>= 1;
+    }
+    return count;
+}
 
 int main() {
     int T;
@@ -69,38 +87,24 @@ int main() {
         cin >> N >> K;
         cin.ignore();
         vector<long long> friends(N, 0);
-
-        set<int> fav_idx;
         for (int j = 0; j < N; j++) {
             string s;
             getline(cin, s);
-            for (int k = 0; k < K; k++) {
-                if (s[k] == '1') {
-                    int ik = K - 1 - k;
-                    friends[j] |= (1 << ik);
-                    fav_idx.insert(k);
-                }
-            }
+            friends[j] = convert_to_binary(s);
         }
-        int ans = K;
-        for (int j = 0; j <= (1 << K) - 1; j++) {
+        int ans = N;
+        long long max_j = 1 << K;
+        for (long long j = 1; j < max_j; j++) {
             bool flag = true;
             for (long long frd : friends) {
                 long long test = frd & j;
-                if ((frd & j) == 0) {
+                if (test == 0) {
                     flag = false;
                     break;
                 }
             }
             if (flag == true) {
-                int count = 0;
-                int j_count = j;
-                while (j_count > 0) {
-                    count += (j_count & 1);
-                    j_count >>= 1;
-                }
-                ans = min(ans, count);
-                break;
+                ans = min(count_one_bits(j), ans);
             }
         }
 
