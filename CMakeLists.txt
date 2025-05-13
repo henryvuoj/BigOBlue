@@ -57,3 +57,4 @@ add_executable(or_class2_mattey_multiply orange/class2_bitmask/mattey_multiply.c
         orange/class2_bitmask/aish_and_xor.cpp)
 add_executable(or_class2_samu_birthday orange/class2_bitmask/samu_birthday.cpp)
 add_executable(or_class2_sansa_and_xor orange/class2_bitmask/sansa_and_xor.cpp)
+add_executable(or_class3_n_queen orange/class3_backtracking/n-queen.cpp)
