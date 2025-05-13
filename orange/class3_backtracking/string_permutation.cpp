@@ -22,6 +22,11 @@ void backtrack(string &s, int l, int r) {
 }
 
 int main() {
-    string s = "ABCD";
-    backtrack(s, 0, s.length() - 1);
+    string s = "AABB";
+    // backtrack(s, 0, s.length() - 1);
+    sort(s.begin(), s.end());
+    do {
+        cout << s << endl;
+    } while (next_permutation(s.begin(), s.end()));
+    return 0;
 }
