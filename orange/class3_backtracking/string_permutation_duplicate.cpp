@@ -33,6 +33,6 @@ void backtrack(string &s, int l, int r) {
 }
 
 int main() {
-    string s = "AABB";
+    string s = "1100";
     backtrack(s, 0, s.length());
 }

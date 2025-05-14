@@ -62,3 +62,4 @@ add_executable(or_class3_string_permutation orange/class3_backtracking/string_pe
 add_executable(or_class3_string_permutation_duplicate orange/class3_backtracking/string_permutation_duplicate.cpp)
 add_executable(or_class3_combination orange/class3_backtracking/combination.cpp)
 add_executable(or_class3_lotto orange/class3_backtracking/lotto.cpp)
+add_executable(or_class3_hamming_distance orange/class3_backtracking/hamming_distance.cpp)
