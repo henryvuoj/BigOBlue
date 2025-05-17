@@ -122,6 +122,7 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -138,7 +139,6 @@ Z W A V    G S F U
 U N C O    A H F T
 Y T G I    G N A L
 H G P M    B O O B
-
 
  */
 
@@ -173,7 +173,8 @@ void backtrack_combination(vector<vector<char>> board, set<vector<char>> &result
         for (pair<int, int> tmp_pos : tmp) {
             tmp_char.push_back(board[tmp_pos.first][tmp_pos.second]);
         }
-        sort(tmp_char.begin(), tmp_char.end());
+        // In case it only need to connect, don't need to form a path from x -> y -> z -> t
+        // sort(tmp_char.begin(), tmp_char.end());
         results.insert(tmp_char);
         return;
     }
@@ -254,17 +255,40 @@ int main() {
         }
         set<vector<char>> board_1_words = find_all_words(board_1);
         set<vector<char>> board_2_words = find_all_words(board_2);
-        vector<vector<char>> results;
+        vector<string> results;
         for (vector<char> words_1 : board_1_words) {
             for (vector<char> words_2 : board_2_words) {
-                if (words_1 == words_2) {
-                    results.push_back(words_1);
+                if (words_1[0] == words_2[0] &&
+                    words_1[1] == words_2[1] &&
+                    words_1[2] == words_2[2] &&
+                    words_1[3] == words_2[3]) {
+                    if (words_1[0] == 'A' &&
+                    words_1[1] == 'B' &&
+                    words_1[2] == 'B' &&
+                    words_1[3] == 'A') {
+                        cout << endl;
+                    }
+                    results.push_back({words_1[0], words_1[1], words_1[2], words_1[3]});
                 }
             }
         }
-        vector<string> res = find_all_word_permutations(results);
-        for (string word : res) {
-            cout << word << endl;
+        if (results.empty()) {
+            cout << "There are no common words for this pair of boggle boards." << endl;
+        } else {
+            sort(results.begin(), results.end());
+            for (string word : results) {
+                cout << word << endl;
+            }
         }
+
+        cin.ignore();
     }
 }
+
+/*
+A B B A    A B B A
+E D D E    E D D E
+E F F A    E F F A
+A E F G    A E F G
+
+ */
