@@ -2,21 +2,23 @@
 // Created by VuHai on 17/5/25.
 //
 
+#include <cmath>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 #include <iostream>
 #include <ostream>
-#define INF 100000
+#define INF 100000000000
 using namespace std;
 
-int dist(pair<int, int> p1, pair<int, int> p2) {
+long long dist(pair<long long, long long> p1, pair<long long, long long> p2) {
     return (p1.first - p2.first)*(p1.first - p2.first) + (p1.second - p2.second)*(p1.second - p2.second);
 }
 
-int closest_pair(vector<pair<int, int>> points, int left, int right) {
-    int mid = left + (right - left) / 2;
-    int min_left = INF;
-    int min_right = INF;
+long long closest_pair(vector<pair<long long, long long>> points, long long left, long long right) {
+    long long mid = left + (right - left) / 2;
+    long long min_left = INF;
+    long long min_right = INF;
     if (mid - left > 2) {
         min_left = min(min_left, closest_pair(points, left, mid));
     } else if (mid - left == 2) {
@@ -27,17 +29,17 @@ int closest_pair(vector<pair<int, int>> points, int left, int right) {
     } else if (right - mid == 3){
         min_right = dist(points[mid + 1], points[mid + 2]);
     }
-    int min_dist = min(min_left, min_right);
-    vector<pair<int, int>> min_points;
-    for (int i = left; i < right; i++) {
+    long long min_dist = min(min_left, min_right);
+    vector<pair<long long, long long>> min_points;
+    for (long long i = left; i <= right; i++) {
         min_points.push_back(points[i]);
     }
-    sort(min_points.begin(), min_points.end(), [](pair<int, int> &p1, pair<int, int> &p2) {
+    sort(min_points.begin(), min_points.end(), [](pair<long long, long long> &p1, pair<long long, long long> &p2) {
         return p1.second < p2.second;
     });
-    for (int i = 0; i < min_points.size() - 1; i++) {
-        int max_square = min_points[i].second + (int) sqrt(min_dist);
-        for (int j = i + 1; j < min_points.size(); j++) {
+    for (long long i = 0; i < min_points.size() - 1; i++) {
+        long long max_square = min_points[i].second + (long long) sqrt(min_dist);
+        for (long long j = i + 1; j < min_points.size(); j++) {
             if (min_points[j].second > max_square) {
                 break;
             }
@@ -48,18 +50,22 @@ int closest_pair(vector<pair<int, int>> points, int left, int right) {
 }
 
 int main() {
-    vector<pair<int, int>> points = {
-        {1, 2},
-        {-4, -1},
-        {-1 , 1},
-        {6, 5},
-        {2, -4},
-        {-2, -3},
-        {4, -1},
-        {-5, 4},
-        {3, 4}
-    };
-    sort(points.begin(), points.end());
-    float result = sqrt(closest_pair(points, 0, points.size() - 1));
-    cout << result << endl;
+    while (true) {
+        long long N;
+        cin >> N;
+        if (N == 0) return 0;
+        vector<pair<long long, long long>> points = vector<pair<long long, long long>>(N);
+        for (long long i = 0; i < N; i++) {
+            long long x, y;
+            cin >> x >> y;
+            points[i].first = x;
+            points[i].second = y;
+        }
+        double result = sqrt(closest_pair(points, 0, points.size() - 1));
+        if (result >= 10000.0) {
+            cout << "INFINITY" << endl;
+        } else {
+            cout << fixed << setprecision(4) << result << endl;
+        }
+    }
 }
