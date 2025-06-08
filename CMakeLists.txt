@@ -68,3 +68,4 @@ add_executable(or_class3_boggle_game orange/class3_backtracking/boggle_game.cpp)
 add_executable(or_class4_closest_pair_of_points orange/class4_divide_and_conquer/closest_pair_of_points.cpp
         orange/class4_divide_and_conquer/painting_fence.cpp)
 add_executable(or_class4_max_subarr_sum orange/class4_divide_and_conquer/max_subarr_sum.cpp)
+add_executable(or_class10_fibonacci orange/class_10_dynamic_programming/fibonacci.cpp)
