@@ -70,3 +70,4 @@ add_executable(or_class4_closest_pair_of_points orange/class4_divide_and_conquer
 add_executable(or_class4_max_subarr_sum orange/class4_divide_and_conquer/max_subarr_sum.cpp)
 add_executable(or_class10_fibonacci orange/class_10_dynamic_programming/fibonacci.cpp)
 add_executable(or_class10_stair_case orange/class_10_dynamic_programming/stair_case.cpp)
+add_executable(or_class10_coin_change orange/class_10_dynamic_programming/coin_change.cpp)
