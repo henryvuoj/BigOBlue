@@ -7,27 +7,27 @@
 
 using namespace std;
 
-// void calculate(vector<long int> &dp, vector<long int> cubes, long int from, long int to) {
-//     for (long int cube : cubes) {
+// void calculate(vector<long long> &dp, vector<long long> cubes, long long from, long long to) {
+//     for (long long cube : cubes) {
 //         if (cube <= to) {
-//             long int idx = max(from, cube);
-//             for (long int i = idx; i <= to; i++) {
+//             long long idx = max(from, cube);
+//             for (long long i = idx; i <= to; i++) {
 //                 dp[i] += dp[i - cube];
 //             }
 //         }
 //     }
 // }
 //
-// long int main() {
-//     vector<long int> dp = vector<long int>(10001);
+// long long main() {
+//     vector<long long> dp = vector<long long>(10001);
 //     dp[0] = 1;
-//     long int cube_size = 21;
-//     vector<long int> cubes = vector<long int>(cube_size);
-//     for (long int i = 1; i <= cube_size; i++) {
+//     long long cube_size = 21;
+//     vector<long long> cubes = vector<long long>(cube_size);
+//     for (long long i = 1; i <= cube_size; i++) {
 //         cubes[i-1] = i * i * i;
 //     }
-//     long int max = 0;
-//     long int n;
+//     long long max = 0;
+//     long long n;
 //     while (cin >> n) {
 //         if (n > max) {
 //             calculate(dp, cubes, max+1, n);
@@ -38,27 +38,34 @@ using namespace std;
 // }
 
 
-long int calculate(vector<long int> coins, long int n) {
-    long int size = n / coins[0];
-    vector<long int> dp = vector<long int>(size + 1, 0);
+vector<long long> calculate(vector<long long> coins, long long n) {
+    long long size = n / coins[0];
+    vector<long long> dp = vector<long long>(size + 1, 0);
     dp[0] = 1;
-    for (long int coin : coins) {
-        for (long int target = coin; target <= n; target++) {
+    for (long long coin : coins) {
+        for (long long target = coin; target <= n; target++) {
             dp[target] += dp[target-coin];
         }
     }
-    return dp[n];
+    return dp;
 }
 
 
 int main() {
-    long int cube_size = 21;
-    vector<long int> cubes = vector<long int>(cube_size);
-    for (long int i = 1; i <= cube_size; i++) {
+    long long cube_size = 21;
+    vector<long long> cubes = vector<long long>(cube_size);
+    for (long long i = 1; i <= cube_size; i++) {
         cubes[i-1] = i * i * i;
     }
-    long int n;
+    long long n;
+    vector<long long> inputs;
+    long long max = 0;
     while (cin >> n) {
-        cout << calculate(cubes, n) << endl;
+        inputs.push_back(n);
+        max = max > n ? max : n;
+    }
+    vector<long long> dp = calculate(cubes, n);
+    for (long long input : inputs) {
+        cout << dp[input] << endl;
     }
 }
