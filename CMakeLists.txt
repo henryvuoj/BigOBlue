@@ -72,3 +72,4 @@ add_executable(or_class10_fibonacci orange/class_10_dynamic_programming/fibonacc
 add_executable(or_class10_stair_case orange/class_10_dynamic_programming/stair_case.cpp)
 add_executable(or_class10_coin_change orange/class_10_dynamic_programming/coin_change.cpp)
 add_executable(or_class10_b_land_gold orange/class_10_dynamic_programming/b_land_gold.cpp)
+add_executable(or_class10_k_base_number orange/class_10_dynamic_programming/k_base_number.cpp)
