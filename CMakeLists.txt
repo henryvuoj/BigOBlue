@@ -74,3 +74,4 @@ add_executable(or_class10_coin_change orange/class_10_dynamic_programming/coin_c
 add_executable(or_class10_b_land_gold orange/class_10_dynamic_programming/b_land_gold.cpp)
 add_executable(or_class10_k_base_number orange/class_10_dynamic_programming/k_base_number.cpp)
 add_executable(or_class10_ingen_cube orange/class_10_dynamic_programming/ingen_cube.cpp)
+add_executable(or_class10_philosofer orange/class_10_dynamic_programming/philosofer.cpp)
