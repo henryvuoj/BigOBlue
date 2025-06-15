@@ -37,7 +37,44 @@ vector<char> lcs_recursive_print_result(vector<char> arr1, vector<char> arr2, in
     }
 }
 
+vector<vector<int>> lcs_dynamic_tabulation(vector<char> arr1, vector<char> arr2) {
+    vector<vector<int>> dp(arr1.size()+1, vector<int>(arr2.size()+1, 0));
+    for (int i = 1; i <= arr1.size(); i++) {
+        for (int j = 1; j <= arr2.size(); j++) {
+            if (arr1[i - 1] == arr2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+    return dp;
+}
 
+vector<char> lcs_dynamic_tabulation_print_result(vector<char> arr1, vector<char> arr2) {
+    vector<char> chars;
+    vector<vector<int>> dp = lcs_dynamic_tabulation(arr1, arr2);
+    int i = arr1.size(), j = arr2.size();
+    while (i > 0 && j > 0) {
+        if (arr1[i-1] == arr2[j-1]) {
+            chars.push_back(arr1[i-1]);
+            i--;
+            j--;
+        } else {
+            int left = dp[i][j - 1];
+            int right = dp[i - 1][j];
+            if (i <= 1 || right <= left) {
+                j--;
+                continue;
+            }
+            if (j <= 1 || right >= left) {
+                i--;
+                continue;
+            }
+        }
+    }
+    return chars;
+}
 
 int main() {
     vector<char> arr1 = {'A', 'T', 'C', 'J', 'D', 'Z', 'E', 'F', 'G', 'Y'};
@@ -46,7 +83,12 @@ int main() {
     // vector<char> arr1 = {'E','D'};
     // vector<char> arr2 = {'E', 'C', 'D', 'G'};
 
-    vector<char> start;
-    vector<char> result_lcs_recursive_print_result = lcs_recursive_print_result(arr1, arr2, 0, 0, start);
-    cout << lcs_recursive(arr1, arr2, 0, 0, 0) << std::endl;
+    // vector<char> start;
+    // vector<char> result_lcs_recursive_print_result = lcs_recursive_print_result(arr1, arr2, 0, 0, start);
+    // cout << lcs_recursive(arr1, arr2, 0, 0, 0) << std::endl;
+
+
+    vector<char> result_lcs_tabulation_print_result = lcs_dynamic_tabulation_print_result(arr1, arr2);
+    cout << lcs_dynamic_tabulation(arr1, arr2)[arr1.size()][arr2.size()] << std::endl;
+
 }
