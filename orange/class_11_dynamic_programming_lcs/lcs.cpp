@@ -76,6 +76,33 @@ vector<char> lcs_dynamic_tabulation_print_result(vector<char> arr1, vector<char>
     return chars;
 }
 
+string diff(vector<char> arr1, vector<char> arr2) {
+    vector<vector<int>> dp = lcs_dynamic_tabulation(arr1, arr2);
+    int i = arr1.size(), j = arr2.size();
+    string result = "";
+    while (i > 0 && j > 0) {
+        if (arr1[i-1] == arr2[j-1]) {
+            result = std::string(" ") + arr1[i-1] + result;
+            i--;
+            j--;
+        } else {
+            int left = dp[i][j - 1];
+            int right = dp[i - 1][j];
+            if (i <= 1 || right <= left) {
+                result = std::string(" -") + arr2[j-1] + result;
+                j--;
+                continue;
+            }
+            if (j <= 1 || right >= left) {
+                result = std::string(" +") + arr1[i-1] + result;
+                i--;
+                continue;
+            }
+        }
+    }
+    return result;
+}
+
 int main() {
     vector<char> arr1 = {'A', 'T', 'C', 'J', 'D', 'Z', 'E', 'F', 'G', 'Y'};
     vector<char> arr2 = {'B', 'A', 'D', 'C', 'J', 'E', 'F', 'G', 'Y', 'T'};
@@ -88,7 +115,8 @@ int main() {
     // cout << lcs_recursive(arr1, arr2, 0, 0, 0) << std::endl;
 
 
-    vector<char> result_lcs_tabulation_print_result = lcs_dynamic_tabulation_print_result(arr1, arr2);
-    cout << lcs_dynamic_tabulation(arr1, arr2)[arr1.size()][arr2.size()] << std::endl;
+    // vector<char> result_lcs_tabulation_print_result = lcs_dynamic_tabulation_print_result(arr1, arr2);
+    // cout << lcs_dynamic_tabulation(arr1, arr2)[arr1.size()][arr2.size()] << std::endl;
 
+    cout << diff(arr1, arr2) << endl;
 }
