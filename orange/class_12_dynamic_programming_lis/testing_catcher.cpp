@@ -37,15 +37,17 @@ int lds(vector<int> v) {
 int binary_search(vector<int> v, vector<int> result, int target) {
     int left = 0;
     int right = result.size() - 1;
+    int ans = -1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
-        if (v[result[mid]] < target) {
+        if (v[result[mid]] >= target) {
             left = mid + 1;
         } else {
-            return result[mid];
+            right = mid - 1;
+            ans = mid;
         }
     }
-    return -1;
+    return ans;
 }
 
 int lds_binary_search(vector<int> v) {
@@ -56,6 +58,7 @@ int lds_binary_search(vector<int> v) {
         if (pos == -1) {
             result.push_back(i);
         } else {
+
             result[pos] = i;
         }
     }
@@ -88,9 +91,7 @@ int main() {
                 v.push_back(i);
             }
         }
-        // int res = lds_binary_search(vector<int>(v));
-        int res = lds(vector<int>(v));
-        // res = res == 0 ? -1 : res;
+        int res = lds_binary_search(vector<int>(v));
         // int res = lds(vector<int>(v));
         cout<<"Test #"<<count<<":"<<endl;
         cout<<"  maximum possible interceptions: "<<res<<endl;
