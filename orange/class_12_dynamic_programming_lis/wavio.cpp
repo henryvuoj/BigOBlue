@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 vector<int> lcs(vector<int> seq) {
@@ -16,6 +17,21 @@ vector<int> lcs(vector<int> seq) {
         }
     }
     return dp;
+}
+
+vector<int> lcs_bs(vector<int> seq, vector<int>& lis) {
+    vector<int> result;
+    result.push_back(seq[0]);
+    for (int i = 1; i < seq.size(); i++) {
+        int pos = lower_bound(result.begin(), result.end(), seq[i]) - result.begin();
+        if (pos == result.size()) {
+            result.push_back(seq[i]);
+        } else {
+            result[pos] = seq[i];
+        }
+        lis[i] = pos + 1;
+    }
+    return result;
 }
 
 vector<int> lds(vector<int> seq) {
@@ -32,22 +48,19 @@ vector<int> lds(vector<int> seq) {
 
 int solution(vector<int> seq) {
     //LCS
-    vector<int> dp_lcs = lcs(seq);
-    vector<int> dp_lds = lds(seq);
-    int maxVal = -1;
-    int count_lcs = 0;
-    int count_lds = 0;
-    for (int i = 1; i < seq.size() - 1; i++) {
-        if (dp_lcs[i] == 1) count_lcs++;
-        if (dp_lds[i] == 1) count_lds++;
-        if (dp_lcs[i] + dp_lds[i] > maxVal) {
-            int L = (min(dp_lcs[i],dp_lds[i]) - 1) * 2 + 1;
-            maxVal = max(maxVal, L);
-        }
+    vector<int> ascendingLength, descendingLength;
+    ascendingLength.resize(seq.size());
+    descendingLength.resize(seq.size());
+    lcs_bs(seq, ascendingLength);
+    reverse(seq.begin(), seq.end());
+    lcs_bs(seq, descendingLength);
+    int maxVal = 1;
+    for (int i = 0; i < seq.size(); i++) {
+        int minP = min(ascendingLength[i],descendingLength[seq.size() - 1 - i]);
+        int L = (minP - 1) * 2 + 1;
+        maxVal = max(maxVal, L);
     }
-    if (count_lcs == seq.size() || count_lds == seq.size()) {
-        return 1;
-    }
+
     return maxVal;
 }
 
@@ -66,7 +79,7 @@ int main() {
 
     //5
     // vector<int> seq = {78,28,73,88,77,40,31,78,91};
-
+    //
     // cout << solution(seq) << endl;
 
     int x;
